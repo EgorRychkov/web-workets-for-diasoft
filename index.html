@@ -48,8 +48,9 @@
       if (window.Worker) {
         if (!thread) {
           thread = new Worker("./thread.js");
+          thread.postMessage({ timeout: 2000 });
         } else {
-          thread.postMessage('click');
+          thread.postMessage({ timeout: 2000 });
         }
 
         thread.onmessage = (event) => {
