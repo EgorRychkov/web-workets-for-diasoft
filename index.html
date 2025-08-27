@@ -42,14 +42,18 @@
   <div id="result"></div>
 
   <script>
+    let thread = null;
+
     document.getElementById('start').addEventListener('click', () => {
       if (window.Worker) {
-        const thread = new Worker("./thread.js");
+        if (!thread) {
+          thread = new Worker("./thread.js");
+        } else {
+          thread.postMessage('click');
+        }
 
         thread.onmessage = (event) => {
           document.getElementById('result').innerHTML = event.data;
-          thread.terminate();
-          console.log('terminated');
         }
       }
     });

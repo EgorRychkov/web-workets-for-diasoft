@@ -1,3 +1,13 @@
+self.onmessage = (event) => {
+  if (event.data === 'click') {
+    postMessage(slowFunction(3000));
+  }
+
+  if (event.data === 'terminate') {
+    self.close();
+  }
+};
+
 const slowFunction = (timeout = 3000) => {
   let start = performance.now();
   let x = 0;
@@ -11,7 +21,5 @@ const slowFunction = (timeout = 3000) => {
   return x;
 }
 
-const result = slowFunction(3000);
-
-postMessage(result);
+postMessage(slowFunction(3000));
 
